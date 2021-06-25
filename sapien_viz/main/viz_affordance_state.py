@@ -47,7 +47,7 @@ def visualize_affordance_state_trajectory(visual_qpos_traj, sim_qpos_traj, fps, 
     viewer.toggle_axes(0)
 
     # Object
-    object_actor = load_ycb_objects(renderer, scene, [object_name])[object_name]
+    object_actors = load_ycb_objects(renderer, scene, [object_name], static=True)
 
     # Articulation
     robot_name = "adroit_wrist_free"
@@ -66,7 +66,6 @@ def visualize_affordance_state_trajectory(visual_qpos_traj, sim_qpos_traj, fps, 
         for body in link.get_visual_bodies():
             body.set_visibility(0.5)
     scene.step()
-    object_actor.set_pose(sapien.Pose([0, 0, 0]))
 
     trajectory_length = sim_qpos_traj.shape[0]
 
