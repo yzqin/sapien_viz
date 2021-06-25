@@ -83,8 +83,8 @@ def visualize_affordance_state_trajectory(visual_qpos_traj, sim_qpos_traj, fps, 
 
 
 def main():
-    data = np.load("test_assets/affordance_trajectory.pkl", allow_pickle=True)
     args = parse_args()
+    data = np.load(args.affordance_file, allow_pickle=True)
     affordance = data["affordance"]
     state = data["state"]
     visual_qpos = affordance
