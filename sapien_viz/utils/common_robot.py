@@ -2,21 +2,23 @@ import os
 
 import numpy as np
 import sapien.core as sapien
+from pathlib import Path
 
 _NAME_MAPPING = {
     "allegro": "assets/robot/allegro_hand_description_right.urdf",
     "allegro_left": "assets/robot/allegro_hand_description_left.urdf",
     "allegro_right": "assets/robot/allegro_hand_description_right.urdf",
-    "adroit": "assets/robot/adroit_hand.urdf",
-    "adroit_free": "assets/robot/adroit_hand_free.urdf",
+    "adroit": "assets/robot/adroit_hand_free.urdf",
+    "adroit_wrist_free": "assets/robot/adroit_hand_wrist_free.urdf",
 }
 SUPPORTED_ROBOT = list(_NAME_MAPPING.keys())
 
 
 def load_robot(renderer: sapien.VulkanRenderer, scene: sapien.Scene, robot_name):
     loader = scene.create_urdf_loader()
-    current_file = os.path.abspath(os.path.dirname(__file__))
-    filename = os.path.join(current_file, _NAME_MAPPING[robot_name])
+    current_dir = Path(__file__) / "../"
+    package_dir = (current_dir / "../").resolve()
+    filename = str(package_dir / _NAME_MAPPING[robot_name])
     robot_builder = loader.load_file_as_articulation_builder(filename)
     for link_builder in robot_builder.get_link_builders():
         link_builder.set_collision_groups(0, 1, 2, 2)
