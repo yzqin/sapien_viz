@@ -2,16 +2,16 @@
 
 ## Installation
 
+Directly install
 ```bash
-# Install SAPIEN from Python PYPI
-pip3 install sapien 
+pip3 install git+https://github.com/yzqin/sapien_viz.git
 ```
 
-Then install the visualization utils, including robot model:
-
+Or clone and install
 ```bash
+pip3 install sapien 
 git clone https://github.com/yzqin/viz_utils
-cd viz_utils
+cd sapien_viz
 pip3 install .
 ```
 
@@ -38,4 +38,5 @@ For example, use the test data in this repo:
 ```bash
 viz_robot -f test_assets/obj_id_37.pkl -r adroit_free --dict-key retarget_qpos -s
 viz_hand_object -f test_assets/142517.pkl -r adroit_free
+viz_ycb_pose -d test_assets/viz_ycb_pose_example_dir --fps 3
 ```
