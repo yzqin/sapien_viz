@@ -11,7 +11,7 @@ from sapien_viz.utils.ycb_object import SUPPORTED_OBJECT, load_ycb_objects, ID2O
 
 
 def parse_args():
-    link = "https://github.com/yzqin/viz_utils/tree/master/test_assets/viz_ycb_pose_example_dir"
+    link = "https://github.com/yzqin/sapien_viz/tree/master/test_assets/viz_ycb_pose_example_dir"
     hel_str = f"Please see {link}" " for more details about the data format used by this script"
     parser = argparse.ArgumentParser(description=hel_str)
     parser.add_argument('-d', '--directory', action='store', type=str, required=True,
