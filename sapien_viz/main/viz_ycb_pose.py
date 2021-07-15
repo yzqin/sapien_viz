@@ -70,17 +70,17 @@ def visualize_ycb_pose_sequence(directory, fps):
         for key in pose_dict:
             if key in SUPPORTED_OBJECT:
                 object_set.add(key)
-                new_pose_dict.update({key: pose_dict[key]})
+                new_pose_dict.update({key: get_transformation_matrix(pose_dict[key])})
             else:
                 key_id = str(key).split(".")[0]
                 if key_id in ID2OBJECT:
                     object_set.add(ID2OBJECT[key_id])
-                    new_pose_dict.update({ID2OBJECT[key_id]: pose_dict[key]})
+                    new_pose_dict.update({ID2OBJECT[key_id]: get_transformation_matrix(pose_dict[key])})
                 else:
                     warnings.warn(f"Object key {key} is not valid")
         new_pose_seq.append(new_pose_dict)
 
-    print(f"Object set has {len(object_set)} objects: {object_set}")
+    print(f"Sequence contains at most {len(object_set)} objects: {object_set}")
     actors = load_ycb_objects(renderer, scene, list(object_set), static=True)
     scene.step()
 
@@ -104,6 +104,18 @@ def visualize_ycb_pose_sequence(directory, fps):
     while not viewer.closed:
         scene.update_render()
         viewer.render()
+
+
+def get_transformation_matrix(mat):
+    if not isinstance(mat, (np.ndarray, list)):
+        raise ValueError(f"Unsupported pose {mat}")
+    mat = np.array(mat)
+    if mat.shape == (4, 4):
+        return mat
+    elif mat.shape == (3, 4):
+        return np.concatenate([mat, np.array([[0, 0, 0, 1]])], axis=0)
+    else:
+        raise ValueError(f"Unsupported pose shape {mat.shape}")
 
 
 def main():
