@@ -6,8 +6,11 @@ import sapien.core as sapien
 _YCB_OBJECT_MAPPING = {"master_chef_can": "002", "cracker_box": "003", "sugar_box": "004", "tomato_soup_can": "005",
                        "mustard_bottle": "006", "potted_meat_can": "010", "banana": "011", "bleach_cleanser": "021",
                        "bowl": "024", "mug": "025", "large_clamp": "051"}
-
 SUPPORTED_OBJECT = list(_YCB_OBJECT_MAPPING.keys())
+
+OBJECT2ID = {'bleach_cleanser': '12', 'drill': '15', 'mug': '14', 'large_clamp': '19', 'sugar_box': '3',
+             'mustard_bottle': '5', 'banana': '10', 'bowl': '13', 'cheez': '2', 'tomato_soup_can': '4'}
+ID2OBJECT = {value: key for key, value in OBJECT2ID.items()}
 
 
 def load_ycb_objects(renderer: sapien.VulkanRenderer, scene: sapien.Scene, object_names, static=False):
